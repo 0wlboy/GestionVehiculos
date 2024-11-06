@@ -66,7 +66,7 @@ class EmpresaAlquiler{
     return vehiculo
   }
 }
-
+/*Por favor utilice esta funcion para ingresar nuevos vehiculos*/
 function nuevoCarro(marca, modelo,year){  
   return new Vehiculo(marca,modelo,year);
 }
