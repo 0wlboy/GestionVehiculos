@@ -14,9 +14,13 @@ class Vehiculo{
     }
   }
 
-  devolver(marca, modelo, year){
-    console.log(`Esta ingresando devuelta el vehiculo ${marca}, modelo ${modelo}, año ${year}`);
+  devolver(){
+    if(this.disponible){
+      console.log(`Este carro no esta alquilado por nadie, no se puede devolver algo que no se a tomado`)
+    }else{
+    console.log(`Esta ingresando devuelta el vehiculo ${this.marca}, modelo ${this.modelo}, año ${this.year}`);
     this.disponible = true;
+    }
   }
 
   informacion(){
@@ -50,19 +54,24 @@ class EmpresaAlquiler{
     })
   }
 
-  buscarVehiculo(marca,modelo){
+  buscarVehiculo(marca,modelo, year){
+    let vehiculo;
     this.flota.forEach(element =>{
-      if((element.marca === marca) && (element.modelo === modelo)){
-        let vehiculo = element
-        return vehiculo
+      if((element.marca === marca) && (element.modelo === modelo)&&(element.year === year)){
+        vehiculo = element
+      }else{
+        console.log('El carro en cuestion no existe, ingrese uno que si este en nuestra posesion.') 
       }
     })
+    return vehiculo
   }
 }
 
 function nuevoCarro(marca, modelo,year){  
   return new Vehiculo(marca,modelo,year);
 }
+
+
 
 let empresa = new EmpresaAlquiler('Carros Super Fun');
 
@@ -73,4 +82,14 @@ empresa.agregar(nuevoCarro('CyberTruck','Tesla',2023))
 
 empresa.mostrarVehiculos();
 
-console.log(empresa.buscarVehiculo('CyberTruck','Tesla'))
+let vehiculo = empresa.buscarVehiculo('CyberTruck','Tesla',2023)
+
+vehiculo.informacion()
+vehiculo.alquilar()
+vehiculo.alquilar()
+
+empresa.mostrarVehiculos()
+
+vehiculo.devolver()
+vehiculo.devolver()
+
